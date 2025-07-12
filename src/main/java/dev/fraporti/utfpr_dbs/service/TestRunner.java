@@ -41,6 +41,7 @@ public class TestRunner {
 
     @Transactional
     public void test2(long codigo){
+        System.out.println("\n\n\n");
         System.out.println(
                 this.funcionarioService
                         .findByNomeAndQtdDependentes("Funcionario 1", 1)
