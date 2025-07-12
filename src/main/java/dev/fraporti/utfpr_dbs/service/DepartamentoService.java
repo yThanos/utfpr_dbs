@@ -12,15 +12,11 @@ import java.util.Optional;
 @Service
 public class DepartamentoService extends EntityService<Departamento, DepartamentoRepository> {
 
-    private final DepartamentoRepository departamentoRepository;
-
-    public DepartamentoService(DepartamentoRepository repository,
-                               DepartamentoRepository departamentoRepository) {
+    public DepartamentoService(DepartamentoRepository repository) {
         super(repository);
-        this.departamentoRepository = departamentoRepository;
     }
 
-    public Optional<Departamento> findFirst() {
-        return departamentoRepository.findFirstByOrderByDataCadAsc();
+    public Departamento findFirst() {
+        return this.repository.findFirstByOrderByDataCadAsc().orElse(null);
     }
 }

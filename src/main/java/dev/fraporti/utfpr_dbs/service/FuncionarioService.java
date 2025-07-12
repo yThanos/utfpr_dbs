@@ -29,8 +29,8 @@ public class FuncionarioService extends EntityService<Funcionario, FuncionarioRe
         return funcionarioRepository.findByDepartamento_Codigo(codDep);
     }
 
-    public Optional<Funcionario> findMostWellPayed() {
-        return this.repository.findFirstByOrderBySalarioDesc();
+    public Funcionario findMostWellPayed() {
+        return this.repository.findFirstByOrderBySalarioDesc().orElse(null);
     }
 
     public List<Funcionario> findTop3BySalary() {
