@@ -15,6 +15,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "funcionario")
+@NamedQuery(
+        name = "Funcionario.byQtdDependentes",
+        query = "FROM Funcionario f WHERE f.qtdDependentes = ?1"
+)
+@NamedNativeQuery(
+        name = "Funcionario.byNameLike",
+        query = "SELECT * FROM funcionario WHERE nome LIKE CONCAT('%', ?1, '%')",
+        resultClass = Funcionario.class
+)
 public class Funcionario extends BaseEntity {
     @Column(name = "nome")
     private String nome;
@@ -28,7 +37,7 @@ public class Funcionario extends BaseEntity {
     @Column(name = "cargo")
     private String cargo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_departamento")
     private Departamento departamento;
 }

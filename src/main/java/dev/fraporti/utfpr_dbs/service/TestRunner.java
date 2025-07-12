@@ -18,26 +18,53 @@ public class TestRunner {
     private final DepartamentoService departamentoService;
     private final FuncionarioService funcionarioService;
 
-    @Transactional
-    public void test() {
+
+    public long test1() {
         Departamento d = new Departamento();
         d.setNome("P&D");
         d = departamentoService.save(d);
 
-        List<Funcionario> funcionarios = new ArrayList<>();
+        final List<Funcionario> funcionarios = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Funcionario f = new Funcionario();
             f.setNome("Funcionario " + i);
             f.setDepartamento(d);
             f.setCargo("Analista de desenvolvimento");
-            f.setSalario(1518.0 * i+1);
+            f.setSalario(1518.0 * (i+1));
             f.setQtdDependentes(i);
             funcionarios.add(f);
         }
-        funcionarios = funcionarioService.save(funcionarios);
+        funcionarioService.save(funcionarios);
 
-        for (Funcionario f: funcionarios) {
+        return d.getCodigo();
+    }
+
+    @Transactional
+    public void test2(long codigo){
+        System.out.println(
+                this.funcionarioService
+                        .findByNomeAndQtdDependentes("Funcionario 1", 1)
+        );
+
+        final Departamento dep = this.departamentoService.findByIdOrThrow(codigo);
+        for(Funcionario f: dep.getFuncionarios()){
             System.out.println(f);
         }
+
+        System.out.println(this.departamentoService.findFirst());
+
+        System.out.println(this.funcionarioService.findMostWellPayed());
+
+        System.out.println(this.funcionarioService.findTop3BySalary());
+
+        System.out.println(this.funcionarioService.findAllWithNoDependents());
+
+        System.out.println(this.funcionarioService.findAllWithSalaryHigherThan(4000.0));
+
+        System.out.println(this.funcionarioService.nativeFindAllWithSalaryHigherThan(5000.0));
+
+        System.out.println(this.funcionarioService.byQtdDependentes(3));
+
+        System.out.println(this.funcionarioService.byNameLike("o 4"));
     }
 }

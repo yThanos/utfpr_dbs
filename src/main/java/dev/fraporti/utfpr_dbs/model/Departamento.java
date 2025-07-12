@@ -23,6 +23,6 @@ public class Departamento extends BaseEntity {
     private String nome;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "departamento", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "departamento", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Funcionario> funcionarios;
 }

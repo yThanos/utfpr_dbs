@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: ${DB_HOST:jdbc:h2:mem:teste}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:1234}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+  application:
+    name: utfpr-dbs
+
+server:
+  port: 9090

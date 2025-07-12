@@ -10,12 +10,12 @@ import java.util.List;
 /**
  * @author vitor.rosmann on 03/07/2025
  */
-public abstract class EntityService<T extends BaseEntity> {
-    protected final BaseRepository<T> repository;
+public abstract class EntityService<T extends BaseEntity, R extends BaseRepository<T>> {
+    protected final R repository;
     protected final Class<T> clazz;
 
     @SuppressWarnings("unchecked")
-    public EntityService(BaseRepository<T> repository) {
+    public EntityService(R repository) {
         this.repository = repository;
         this.clazz = (Class<T>) ((ParameterizedType) getClass()
                 .getGenericSuperclass())
