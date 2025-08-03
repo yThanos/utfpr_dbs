@@ -1,9 +1,12 @@
 package dev.fraporti.utfpr_dbs.repository;
 
 import dev.fraporti.utfpr_dbs.model.Funcionario;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,4 +38,25 @@ public interface FuncionarioRepository extends BaseRepository<Funcionario> {
 
     @Query(name = "Funcionario.byNameLike", nativeQuery = true)
     List<Funcionario> byNameLike(String nome);
+
+    @Transactional
+    @Modifying
+    @Procedure(procedureName = "aumentar_salarios")
+    void riseSalary(int percentual);
+
+    @Query("SELECT f FROM Funcionario f WHERE f.qtdDependentes = 0 AND f.departamento.nome = :depName")
+    List<Funcionario> findWithoutDependentsByDepartment(@Param("depName") String depName);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Funcionario f SET f.departamento.codigo = :newDep WHERE f.departamento.codigo = :oldDep")
+    void updateEmployeeDepartment(
+            @Param("oldDep") Long oldDep,
+            @Param("newDep") Long newDep
+    );
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM Funcionario f WHERE f.departamento.codigo = :codDep")
+    void deleteByDepartment(@Param("codDep") Long codDep);
 }

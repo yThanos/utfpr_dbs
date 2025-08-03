@@ -16,6 +16,7 @@ public class AppDriver {
         return (arg) -> {
             long cod = testRunner.test1();
             testRunner.test2(cod);
+            testRunner.test3();
         };
     }
 }

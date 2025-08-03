@@ -39,5 +39,6 @@ public class Funcionario extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cod_departamento")
+    @ToString.Exclude
     private Departamento departamento;
 }

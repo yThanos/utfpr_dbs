@@ -5,7 +5,6 @@ import dev.fraporti.utfpr_dbs.repository.FuncionarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author vitor.rosmann on 03/07/2025
@@ -55,5 +54,21 @@ public class FuncionarioService extends EntityService<Funcionario, FuncionarioRe
 
     public List<Funcionario> byNameLike(String name) {
         return this.repository.byNameLike(name);
+    }
+
+    public void updateSalary(int percentage) {
+        this.repository.riseSalary(percentage);
+    }
+
+    public List<Funcionario> findWithoutDependentsByDepartment(String dep) {
+        return this.repository.findWithoutDependentsByDepartment(dep);
+    }
+
+    public void updateEmployeeDepartment(Long oldDep, Long newDep) {
+        this.repository.updateEmployeeDepartment(oldDep, newDep);
+    }
+
+    public void deleteByDepartment(Long dep) {
+        this.repository.deleteByDepartment(dep);
     }
 }

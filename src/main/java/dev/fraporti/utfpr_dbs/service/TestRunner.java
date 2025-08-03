@@ -68,4 +68,26 @@ public class TestRunner {
 
         System.out.println(this.funcionarioService.byNameLike("o 4"));
     }
+
+    public void test3() {
+        System.out.println("\n\n\n");
+
+        this.funcionarioService.updateSalary(10);
+        System.out.println(
+                this.funcionarioService.findWithoutDependentsByDepartment("P&D")
+        );
+        Departamento newDep = new Departamento();
+        newDep.setNome("Teste");
+
+        Funcionario f = new Funcionario();
+        f.setNome("Funcionario");
+        f.setCargo("Analista de desenvolvimento");
+        f.setSalario(1518.0);
+        f.setQtdDependentes(0);
+        this.departamentoService.saveDepartmentAndEmployee(newDep, f);
+
+        this.funcionarioService.updateEmployeeDepartment(1L, 2L);
+
+        this.funcionarioService.deleteByDepartment(3L);
+    }
 }
